@@ -1,5 +1,5 @@
 class Solution {
-    int[][] dp = new int[500][500];
+    int[][] dp = new int[501][501];
 
     public int fun(int i, int p, int[] nums,int m, int k){
         if(i >= nums.length) return 0;
