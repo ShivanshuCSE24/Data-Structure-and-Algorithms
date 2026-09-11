@@ -1,54 +1,35 @@
-import java.util.*;
-
 class Solution {
+    int[][] dp = new int[501][501];
 
-    int[][] dp;
+    public int fun(int i, int p, int[] nums,int m, int k){
+        if(i >= nums.length) return 0;
 
-    public int fun(int i, int previous, int max, int[] arr, int k) {
+        int len = i - p +1;
+        
+        if(dp[i][p]!=-1) return dp[i][p];
 
-        if (i == arr.length) {
-            return max * (i - previous);
+        m = Math.max(m, nums[i]);
+        int ans = 0;
+
+        if(len == k){
+            int a = m * len + fun(i+1, i +1, nums, 0, k);
+            ans = Math.max(ans, a);
+        }else{
+            int a = m * len + fun(i+1, i+1, nums, 0, k);
+            int b = fun(i+1, p,nums, m, k);
+
+            ans = Math.max(ans, a);
+            ans = Math.max(ans, b);
+
         }
+        return dp[i][p] = ans;
 
-        int len = i - previous + 1;
-
-
-        if (len > k) {
-            return Integer.MIN_VALUE;
-        }
-
-        if (dp[i][previous] != -1) {
-            return dp[i][previous];
-        }
-
-        int newMax = Math.max(max, arr[i]);
-
-        int take = fun(i + 1, previous, newMax, arr, k);
-
-    
-        int currentSum = newMax * len;
-
-        int next = 0;
-
-        if (i + 1 < arr.length) {
-            next = fun(i + 1, i + 1, arr[i + 1], arr, k);
-        }
-
-        int end = currentSum + next;
-
-        return dp[i][previous] = Math.max(take, end);
     }
-
     public int maxSumAfterPartitioning(int[] arr, int k) {
-
-        int n = arr.length;
-
-        dp = new int[n][n];
-
-        for (int[] ar : dp) {
-            Arrays.fill(ar, -1);
+        
+        for(int[] f : dp){
+            Arrays.fill(f, -1);
         }
-
-        return fun(0, 0, arr[0], arr, k);
+        return fun(0,0, arr, 0, k);
     }
 }
