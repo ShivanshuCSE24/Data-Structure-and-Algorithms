@@ -1,4 +1,17 @@
 class Solution {
+    Boolean[][][] dp;
+
+    public boolean hasValidPath(char[][] grid) {
+        int m = grid.length;
+        int n = grid[0].length;
+
+        if ((m + n - 1) % 2 == 1) return false;
+
+        dp = new Boolean[m][n][m + n];
+
+        return solve(0, 0, 0, grid);
+    }
+
     boolean solve(int i, int j, int op, char[][] grid) {
 
         if (i >= grid.length || j >= grid[0].length)
@@ -26,17 +39,4 @@ class Solution {
 
         return dp[i][j][op] = down || right;
     }
-
-    Boolean[][][] dp;
-
-    public boolean hasValidPath(char[][] grid) {
-        int m = grid.length;
-        int n = grid[0].length;
-
-        if ((m + n - 1) % 2 == 1) return false;
-
-        dp = new Boolean[m][n][m + n];
-
-        return solve(0, 0, 0, grid);
-    }  
 }
