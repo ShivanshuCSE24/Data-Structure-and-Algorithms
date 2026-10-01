@@ -12,31 +12,31 @@ class Solution {
         return solve(0, 0, 0, grid);
     }
 
-    boolean solve(int i, int j, int op, char[][] grid) {
+    boolean solve(int i, int j, int a, char[][] grid) {
 
         if (i >= grid.length || j >= grid[0].length)
             return false;
 
         if (grid[i][j] == '(')
-            op++;
+            a++;
         else
-            op--;
+            a--;
 
-        if (op < 0)
+        if (a < 0)
             return false;
 
-        if (op > grid.length + grid[0].length)
+        if (a > grid.length + grid[0].length)
             return false;
 
         if (i == grid.length - 1 && j == grid[0].length - 1)
-            return op == 0;
+            return a == 0;
 
-        if (dp[i][j][op] != null)
-            return dp[i][j][op];
+        if (dp[i][j][a] != null)
+            return dp[i][j][a];
 
-        boolean down = solve(i + 1, j, op, grid);
-        boolean right = solve(i, j + 1, op, grid);
+        boolean down = solve(i + 1, j, a, grid);
+        boolean right = solve(i, j + 1, a, grid);
 
-        return dp[i][j][op] = down || right;
+        return dp[i][j][a] = down || right;
     }
 }
