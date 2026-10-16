@@ -8,13 +8,13 @@ class Solution {
             return nums[0];
         }
 
-        int[] dp1 = new int[n];
-        Arrays.fill(dp1, -1);
-        int case1 = solve(nums, n - 2, 0, dp1);
+        int[] dp = new int[n];
 
-        int[] dp2 = new int[n];
-        Arrays.fill(dp2, -1);
-        int case2 = solve(nums, n - 1, 1, dp2);
+        Arrays.fill(dp, -1);
+        int case1 = solve(nums, n - 2, 0, dp);
+
+        Arrays.fill(dp, -1);
+        int case2 = solve(nums, n - 1, 1, dp);
 
         return Math.max(case1, case2);
     }
@@ -28,7 +28,7 @@ class Solution {
             return dp[index];
         }
 
-      
+   
         int take = nums[index] + solve(nums, index - 2, start, dp);
 
 
